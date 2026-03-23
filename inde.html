@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Bugambilias Rosas · Para la Biker Hermosa · Con Música</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2d1a2c 0%, #451e30 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Dancing Script', 'Quicksand', cursive;
+            padding: clamp(10px, 3vw, 20px);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Contenedor principal con marco romántico */
+        .romantic-frame {
+            position: relative;
+            width: 100%;
+            max-width: 1300px;
+            border-radius: clamp(24px, 5vw, 48px);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(255, 210, 230, 0.6);
+            background: #fff0f5;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            background: radial-gradient(circle at 30% 20%, #fff0f5, #ffe0e8);
+            aspect-ratio: 1200 / 700;
+        }
+
+        /* Cartel romántico */
+        .romantic-sign {
+            position: absolute;
+            bottom: clamp(5%, 4vw, 8%);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 245, 245, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 60px 60px 60px 40px;
+            padding: clamp(0.8rem, 3vw, 1.5rem) clamp(1rem, 4vw, 2.5rem);
+            text-align: center;
+            box-shadow: 0 20px 35px rgba(100, 30, 50, 0.4), inset 0 1px 2px rgba(255,255,240,0.8);
+            border: 1px solid rgba(255, 200, 210, 0.7);
+            min-width: min(280px, 85vw);
+            max-width: 90vw;
+            z-index: 20;
+            cursor: pointer;
+            transition: 0.3s ease;
+            animation: gentleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        .romantic-sign:hover {
+            transform: translateX(-50%) scale(1.02);
+            background: rgba(255, 245, 245, 0.98);
+            box-shadow: 0 25px 40px rgba(150, 40, 70, 0.5);
+        }
+
+        .sign-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(6px, 2vw, 10px);
+        }
+
+        .biker-icon {
+            font-size: clamp(2rem, 6vw, 2.8rem);
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.2));
+            background: linear-gradient(135deg, #d43f6b, #ff87ab);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: pulseIcon 2s infinite;
+        }
+
+        @keyframes pulseIcon {
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.08); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.9; }
+        }
+
+        .main-message {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.4rem, 5vw, 2.4rem);
+            font-weight: bold;
+            color: #b13e60;
+            text-shadow: 2px 2px 12px rgba(255, 160, 180, 0.6);
+            letter-spacing: 1px;
+            white-space: normal;
+            word-break: keep-all;
+            line-height: 1.2;
+        }
+
+        .heart-divider {
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            color: #e65c7b;
+            letter-spacing: 6px;
+        }
+
+        .sub-text {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+            color: #b65374;
+            background: rgba(255, 220, 230, 0.7);
+            padding: 5px 12px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            text-align: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Decoraciones del cartel */
+        .romantic-sign::before {
+            content: "🌸";
+            position: absolute;
+            top: -20px;
+            left: clamp(5px, 2vw, 15px);
+            font-size: clamp(24px, 6vw, 32px);
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            animation: spinSlow 12s infinite linear;
+        }
+
+        .romantic-sign::after {
+            content: "🏍️💨";
+            position: absolute;
+            bottom: -18px;
+            right: clamp(5px, 2vw, 15px);
+            font-size: clamp(20px, 5vw, 28px);
+            opacity: 0.8;
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Elementos flotantes (corazones y pétalos) */
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            z-index: 25;
+            font-size: 22px;
+            animation: floatUp 4s ease-out forwards;
+            filter: drop-shadow(0 0 3px rgba(255,80,120,0.5));
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-150px) rotate(15deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Control de música romántico */
+        .music-control {
+            position: absolute;
+            bottom: clamp(12px, 3vw, 20px);
+            right: clamp(12px, 3vw, 20px);
+            z-index: 30;
+            background: rgba(255, 235, 240, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 180, 200, 0.6);
+            font-family: 'Segoe UI', sans-serif;
+            transition: 0.2s;
+        }
+
+        .music-control:hover {
+            background: rgba(255, 225, 235, 0.95);
+            transform: scale(1.02);
+        }
+
+        .music-icon {
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+            color: #c73e64;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .music-icon:active {
+            transform: scale(0.95);
+        }
+
+        .music-status {
+            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+            color: #a13e5c;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* Ajustes adicionales para pantallas muy pequeñas */
+        @media (max-width: 480px) {
+            .music-status {
+                white-space: normal;
+                max-width: 120px;
+                line-height: 1.2;
+            }
+            .sub-text {
+                flex-direction: column;
+                gap: 4px;
+            }
+            .romantic-sign {
+                bottom: 4%;
+            }
+        }
+
+        /* Para pantallas con altura reducida */
+        @media (max-height: 600px) {
+            .romantic-sign {
+                bottom: 2%;
+                padding: 0.6rem 1rem;
+            }
+            .biker-icon {
+                font-size: 1.8rem;
+            }
+            .main-message {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="romantic-frame">
+    <canvas id="bougainvilleaCanvas" width="1200" height="700" style="width:100%; height:auto; aspect-ratio:1200/700"></canvas>
+    
+    <div class="romantic-sign">
+        <div class="sign-content">
+            <div class="biker-icon">🛵💖🌸</div>
+            <div class="main-message">✨ Para la biker hermosa ✨</div>
+            <div class="heart-divider">💖🌸🌸💖</div>
+            <div class="sub-text">
+                <span>🌸</span> Vi que te gustan las bugambilias y pensé en ti <span>🌸</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Control de música -->
+    <div class="music-control" id="musicControl">
+        <div class="music-icon" id="playPauseBtn">🎵</div>
+        <div class="music-status" id="musicStatus">♫ canción romántica</div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ---------- Configuración de bugambilias románticas ----------
+        const flowers = [
+            { x: 0.14, y: 0.26, size: 0.065, color1: "#ff6f9e", color2: "#ffb7cd", angle: 0.3, style: "round" },
+            { x: 0.29, y: 0.42, size: 0.072, color1: "#ff5e8e", color2: "#ffb0ca", angle: 0.7, style: "point" },
+            { x: 0.46, y: 0.20, size: 0.078, color1: "#ff77aa", color2: "#ffc2d9", angle: 1.0, style: "round" },
+            { x: 0.61, y: 0.36, size: 0.068, color1: "#ff88bb", color2: "#ffcad4", angle: 0.5, style: "point" },
+            { x: 0.74, y: 0.53, size: 0.072, color1: "#ff70a6", color2: "#ffbed2", angle: 1.2, style: "round" },
+            { x: 0.56, y: 0.67, size: 0.074, color1: "#ff9acb", color2: "#ffd4e2", angle: 0.9, style: "point" },
+            { x: 0.36, y: 0.79, size: 0.064, color1: "#ff85b3", color2: "#ffc0db", angle: 1.9, style: "round" },
+            { x: 0.10, y: 0.52, size: 0.060, color1: "#ff66a0", color2: "#ffb3cd", angle: 1.4, style: "point" },
+            { x: 0.81, y: 0.19, size: 0.066, color1: "#ff99c6", color2: "#ffe0ec", angle: 0.2, style: "round" },
+            { x: 0.43, y: 0.12, size: 0.062, color1: "#ff5c8c", color2: "#ffaac8", angle: 1.6, style: "point" },
+            { x: 0.89, y: 0.46, size: 0.058, color1: "#ffaad5", color2: "#ffeef4", angle: 0.8, style: "round" },
+            { x: 0.06, y: 0.71, size: 0.056, color1: "#ff7faf", color2: "#ffbfd5", angle: 2.2, style: "point" },
+            { x: 0.67, y: 0.71, size: 0.070, color1: "#ff94c2", color2: "#ffd9e6", angle: 0.4, style: "round" },
+            { x: 0.84, y: 0.64, size: 0.062, color1: "#ff6e9e", color2: "#ffb8ce", angle: 1.1, style: "point" },
+            { x: 0.26, y: 0.62, size: 0.064, color1: "#ff80b5", color2: "#ffc7db", angle: 1.7, style: "round" },
+            { x: 0.49, y: 0.86, size: 0.060, color1: "#ff96c5", color2: "#ffd8e7", angle: 2.5, style: "point" }
+        ];
+
+        const stems = [
+            { from: 1, to: 2 }, { from: 2, to: 4 }, { from: 0, to: 6 }, { from: 7, to: 11 },
+            { from: 3, to: 8 }, { from: 5, to: 12 }, { from: 9, to: 2 }, { from: 10, to: 4 },
+            { from: 13, to: 14 }, { from: 15, to: 0 }, { from: 12, to: 13 }
+        ];
+
+        const leaves = [
+            { x: 0.22, y: 0.37, angle: -0.5, size: 0.042 },
+            { x: 0.51, y: 0.49, angle: 0.7, size: 0.040 },
+            { x: 0.77, y: 0.41, angle: 1.2, size: 0.044 },
+            { x: 0.39, y: 0.83, angle: -0.3, size: 0.038 },
+            { x: 0.87, y: 0.76, angle: 0.9, size: 0.036 },
+            { x: 0.11, y: 0.45, angle: -0.8, size: 0.039 },
+            { x: 0.69, y: 0.88, angle: 0.5, size: 0.041 }
+        ];
+
+        let canvas, ctx, w, h;
+        let time = 0;
+        let resizeObserver;
+
+        function initCanvas() {
+            canvas = document.getElementById('bougainvilleaCanvas');
+            if (!canvas) return;
+            const container = canvas.parentElement;
+            const containerWidth = container.clientWidth;
+            const baseW = 1200, baseH = 700;
+            const aspect = baseH / baseW;
+            let newWidth = containerWidth;
+            let newHeight = newWidth * aspect;
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            w = canvas.width;
+            h = canvas.height;
+            ctx = canvas.getContext('2d');
+            drawGarden();
+        }
+
+        function drawGarden() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, w, h);
+            // Fondo degradado suave
+            const grad = ctx.createLinearGradient(0, 0, w * 0.6, h);
+            grad.addColorStop(0, '#fff5fa');
+            grad.addColorStop(0.7, '#ffe6f0');
+            grad.addColorStop(1, '#ffd9e8');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, w, h);
+
+            // Pequeñas manchas de luz
+            for (let i = 0; i < 200; i++) {
+                ctx.fillStyle = `rgba(255, 200, 210, ${Math.random() * 0.2})`;
+                ctx.fillRect(Math.random() * w, Math.random() * h, 1, 2);
+            }
+
+            // Tallos
+            ctx.lineCap = 'round';
+            ctx.shadowBlur = 2;
+            for (let s of stems) {
+                const f1 = flowers[s.from];
+                const f2 = flowers[s.to];
+                if (!f1 || !f2) continue;
+                const x1 = f1.x * w, y1 = f1.y * h;
+                const x2 = f2.x * w, y2 = f2.y * h;
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                const cpX = (x1 + x2) * 0.5 + (Math.sin(s.from) * 10);
+                const cpY = (y1 + y2) * 0.5 - 12;
+                ctx.quadraticCurveTo(cpX, cpY, x2, y2);
+                ctx.lineWidth = 5.5;
+                ctx.strokeStyle = '#7a543e';
+                ctx.stroke();
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = '#a66e48';
+                ctx.stroke();
+            }
+
+            // Hojas
+            for (let leaf of leaves) {
+                drawLeaf(ctx, leaf.x * w, leaf.y * h, w * leaf.size, leaf.angle, '#6f9e66');
+            }
+
+            // Flores
+            for (let f of flowers) {
+                drawBougainvillea(ctx, f.x * w, f.y * h, w * f.size, f.color1, f.color2, f.angle, f.style);
+            }
+
+            // Pétalos caídos y destellos
+            for (let i = 0; i < 120; i++) {
+                ctx.beginPath();
+                ctx.ellipse(Math.random() * w, Math.random() * h, 2 + Math.random() * 6, 1.5 + Math.random() * 4, Math.random() * Math.PI, 0, 2 * Math.PI);
+                ctx.fillStyle = `rgba(255, 130, 160, ${0.2 + Math.random() * 0.3})`;
+                ctx.fill();
+            }
+
+            // Corazones flotantes animados en el canvas
+            for (let i = 0; i < 16; i++) {
+                const t2 = time * 0.002 + i;
+                const heartX = (Math.sin(t2) * 0.12 + 0.2 + i * 0.05) * w;
+                const heartY = (Math.cos(t2 * 0.6) * 0.1 + 0.3 + i * 0.03) * h;
+                ctx.font = `${Math.floor(w * 0.028)}px "Segoe UI", "Arial"`;
+                ctx.fillStyle = `rgba(235, 100, 130, 0.5)`;
+                ctx.fillText(['❤️', '💖', '🌸'][i % 3], heartX, heartY);
+            }
+            ctx.shadowBlur = 0;
+        }
+
+        function drawBougainvillea(ctx, cx, cy, size, mainColor, lightColor, angleOffset, style) {
+            ctx.save();
+            ctx.shadowBlur = 5;
+            ctx.shadowColor = "rgba(150, 50, 70, 0.35)";
+            const angles = [0, 120, 240].map(deg => (deg * Math.PI / 180) + angleOffset);
+            for (let i = 0; i < angles.length; i++) {
+                const rad = angles[i];
+                const offX = Math.cos(rad) * size * 0.45;
+                const offY = Math.sin(rad) * size * 0.45;
+                const petalX = cx + offX;
+                const petalY = cy + offY;
+                const wPetal = size * 0.82;
+                const hPetal = size * 0.64;
+                ctx.beginPath();
+                ctx.ellipse(petalX, petalY, wPetal, hPetal, rad, 0, Math.PI * 2);
+                const grad = ctx.createRadialGradient(petalX - wPetal * 0.2, petalY - hPetal * 0.2, 2, petalX, petalY, wPetal);
+                grad.addColorStop(0, lightColor);
+                grad.addColorStop(1, mainColor);
+                ctx.fillStyle = grad;
+                ctx.fill();
+                ctx.strokeStyle = '#e67c9e';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                // venas
+                ctx.beginPath();
+                ctx.moveTo(petalX, petalY);
+                ctx.lineTo(petalX + Math.cos(rad) * wPetal * 0.7, petalY + Math.sin(rad) * hPetal * 0.6);
+                ctx.lineWidth = 0.9;
+                ctx.stroke();
+            }
+            // Centro
+            ctx.beginPath();
+            ctx.arc(cx, cy, size * 0.27, 0, Math.PI * 2);
+            ctx.fillStyle = '#f9e074';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(cx, cy, size * 0.18, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffc13b';
+            ctx.fill();
+            for (let s = 0; s < 7; s++) {
+                const angS = (s * Math.PI * 2 / 7);
+                const sx = cx + Math.cos(angS) * size * 0.32;
+                const sy = cy + Math.sin(angS) * size * 0.32;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(sx, sy);
+                ctx.lineWidth = 1.2;
+                ctx.strokeStyle = '#d68f2c';
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(sx, sy, size * 0.06, 0, 2 * Math.PI);
+                ctx.fillStyle = '#f3bc5c';
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        function drawLeaf(ctx, x, y, size, angle, color) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(size * 0.8, -size * 0.55, size * 1.3, 0);
+            ctx.quadraticCurveTo(size * 0.7, size * 0.55, 0, 0);
+            ctx.fillStyle = color;
+            ctx.shadowBlur = 2;
+            ctx.fill();
+            ctx.fillStyle = '#9bc28a';
+            ctx.beginPath();
+            ctx.moveTo(size * 0.35, -size * 0.18);
+            ctx.lineTo(size * 0.85, -size * 0.1);
+            ctx.lineTo(size * 0.65, 0);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Animación suave del canvas
+        function animate() {
+            time++;
+            if (ctx && w && h) {
+                drawGarden();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        // Elementos flotantes (corazones y pétalos)
+        function createFloatingElement() {
+            const container = document.querySelector('.romantic-frame');
+            if (!container) return;
+            const el = document.createElement('div');
+            el.className = 'floating-element';
+            const types = ['❤️', '💖', '🌸', '🌹', '💗', '🏍️'];
+            el.innerHTML = types[Math.floor(Math.random() * types.length)];
+            el.style.left = Math.random() * 90 + '%';
+            el.style.bottom = '8%';
+            el.style.fontSize = (16 + Math.random() * 20) + 'px';
+            el.style.animationDuration = 3 + Math.random() * 3 + 's';
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 4500);
+        }
+
+        function startFloatingElements() {
+            setInterval(() => {
+                if (document.hasFocus() && Math.random() > 0.55) createFloatingElement();
+            }, 1400);
+        }
+
+        // ---------- MÚSICA INTEGRADA ----------
+        // Usa el archivo local 'flaca.m4a' (asegúrate de que exista en la misma carpeta)
+        // Si prefieres una canción en línea, reemplaza la URL.
+        const audio = new Audio('flaca.m4a');
+        audio.loop = true;
+        audio.volume = 0.5;
+
+        let isPlaying = false;
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const musicStatus = document.getElementById('musicStatus');
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                playPauseBtn.innerHTML = '🎵';
+                musicStatus.innerHTML = '♫ canción romántica';
+                isPlaying = false;
+            } else {
+                audio.play().catch(e => {
+                    console.log("Reproducción automática bloqueada, necesita interacción del usuario.");
+                    musicStatus.innerHTML = '🔇 haz clic para escuchar';
+                    playPauseBtn.innerHTML = '🎵';
+                    isPlaying = false;
+                });
+                if (!audio.paused) {
+                    playPauseBtn.innerHTML = '🎶';
+                    musicStatus.innerHTML = '♪ sonando...';
+                    isPlaying = true;
+                }
+            }
+        }
+
+        playPauseBtn.addEventListener('click', toggleMusic);
+
+        // También permitir que al hacer clic en el cartel se inicie la música si aún no ha empezado
+        const sign = document.querySelector('.romantic-sign');
+        if (sign) {
+            sign.addEventListener('click', () => {
+                if (!isPlaying) {
+                    toggleMusic();
+                }
+                // Animación extra del cartel
+                for (let i = 0; i < 6; i++) setTimeout(() => createFloatingElement(), i * 80);
+                sign.style.transform = "translateX(-50%) scale(1.03)";
+                setTimeout(() => sign.style.transform = "translateX(-50%) scale(1)", 200);
+            });
+        }
+
+        audio.addEventListener('play', () => {
+            playPauseBtn.innerHTML = '🎶';
+            musicStatus.innerHTML = '♪ sonando...';
+            isPlaying = true;
+        });
+        audio.addEventListener('pause', () => {
+            playPauseBtn.innerHTML = '🎵';
+            musicStatus.innerHTML = '♫ canción romántica';
+            isPlaying = false;
+        });
+
+        // Inicialización con ResizeObserver para máxima responsividad
+        function setupResizeObserver() {
+            const container = document.querySelector('.romantic-frame');
+            if (!container) return;
+            resizeObserver = new ResizeObserver(() => {
+                initCanvas();
+            });
+            resizeObserver.observe(container);
+        }
+
+        window.addEventListener('load', () => {
+            initCanvas();
+            startFloatingElements();
+            animate();
+            setupResizeObserver();
+            musicStatus.innerHTML = '🎵 toca para oír';
+        });
+    })();
+</script>
+</body>
+</html>
